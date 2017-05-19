@@ -32,14 +32,13 @@ void loop() {
   }
 
   lastIrState = currentIrState;
-  
    if (interuptCounter > 0 && interuptCounter % 3 == 0) {
     finished = micros();
     elapsed = finished - start;
     rpm = 60000000/elapsed;
-    Serial.print("Speed: ");
-    Serial.print(rpm);
-    Serial.println(" rpm");
+    // Serial.print("Speed: ");
+    Serial.println(String(rpm) + ":" + String(elapsed));
+    //Serial.write((uint32_t*) data, sizeof(data));
     interuptCounter = 0;
   }
 }
