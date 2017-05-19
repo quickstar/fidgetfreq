@@ -8,6 +8,7 @@ int irState = 0;
 int lastIrState = 0;
 int states[500];
 int i = 0;
+unsigned long start, finished, elapsed, rpm;
 
 void setup() {
   // set the digital pin as output:
@@ -19,23 +20,26 @@ void setup() {
 }
 
 void loop() {
-  int currentIrState = digitalRead(photoTranseDigitalIn);
+  if (interuptCounter == 0) {
+    start = micros();
+  }
   
+  int currentIrState = digitalRead(photoTranseDigitalIn);
   if (currentIrState != lastIrState) {
     if (currentIrState == HIGH) {
       interuptCounter++;
-      Serial.print("number of interupts: ");
-      Serial.println(interuptCounter);
     }
   }
 
   lastIrState = currentIrState;
   
    if (interuptCounter > 0 && interuptCounter % 3 == 0) {
-    Serial.println("");
-    Serial.println("********************");
-    Serial.println("** 3x interrupted **");
-    Serial.println("********************");
+    finished = micros();
+    elapsed = finished - start;
+    rpm = 60000000/elapsed;
+    Serial.print("Speed: ");
+    Serial.print(rpm);
+    Serial.println(" rpm");
     interuptCounter = 0;
   }
 }
