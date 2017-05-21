@@ -5,16 +5,16 @@ clc
 serialPort = 'COM4';            % define COM port #
 plotTitle = 'Fidget Speedy';  % plot title
 xLabel = 'Elapsed Time (s)';    % x-axis label
-yLabel = 'RPM';                % y-axis label
+yLabel = 'Frequency [Hz]';                % y-axis label
 plotGrid = 'on';                % 'off' to turn off grid
 min = 0;                     % set y-min
-max = 2000;                      % set y-max
+max = 25.0;                      % set y-max
 scrollWidth = 10;               % display period in plot, plot entire data log if <= 0
 delay = .01;                    % make sure sample faster than resolution
  
 %Define Function Variables
 time = 0;
-data = 0;
+data = 0.0;
 count = 0;
  
 %Set up Plot
@@ -35,17 +35,17 @@ s = serial(serialPort);
 s.BaudRate = 9600;
 disp('Close Plot to End Session');
 fopen(s);
- 
+
 tic
  
 while ishandle(plotGraph) %Loop when Plot is Active
     dat = fscanf(s); %Read Data from Serial as Float
-    dat = strsplit(dat, ':');
   
     if(~isempty(dat)) %Make sure Data Type is Correct        
         count = count + 1;    
         time(count) = toc;    %Extract Elapsed Time
-        data(count) = str2double(dat(1)); %Extract 1st Data Element         
+        float = str2num(dat(1));
+        data(count) = float; %Extract 1st Data Element         
          
         %Set Axis according to Scroll Width
         if(scrollWidth > 0)
