@@ -7,8 +7,7 @@ int interuptCounter = 0;
 int irState = 0;
 int lastIrState = 0;
 int states[500];
-int i = 0;
-unsigned long start, finished, elapsed, rpm;
+unsigned long start, finished, elapsed;
 
 void setup() {
   // set the digital pin as output:
@@ -35,11 +34,16 @@ void loop() {
    if (interuptCounter > 0 && interuptCounter % 3 == 0) {
     finished = micros();
     elapsed = finished - start;
-    rpm = 60000000/elapsed;
-    // Serial.print("Speed: ");
-    Serial.println(String(rpm) + ":" + String(elapsed));
+    Serial.println(getFrequency(elapsed));
     //Serial.write((uint32_t*) data, sizeof(data));
     interuptCounter = 0;
   }
 }
 
+String getFrequency(long elapsedInMicros) {
+  return String((1/((float)elapsedInMicros/1000000)));
+}
+
+String getRpm(long elapsedInMicros) {
+  return String((float)60000000/elapsed);
+}
