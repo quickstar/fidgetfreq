@@ -1,3 +1,4 @@
+#include <Rotation.h>
 
 // constants won't change. Used here to set a pin number :
 const int irLedPin =  2;
@@ -47,3 +48,4 @@ String getFrequency(long elapsedInMicros) {
 String getRpm(long elapsedInMicros) {
   return String((float)60000000/elapsed);
 }
+
