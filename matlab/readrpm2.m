@@ -2,7 +2,7 @@ clear
 clc
  
 %User Defined Properties 
-serialPort = 'COM4';            % define COM port #
+serialPort = 'COM3';            % define COM port #
 plotTitle = 'Fidget Speedy';  % plot title
 xLabel = 'Elapsed Time (s)';    % x-axis label
 yLabel = 'Frequency [Hz]';                % y-axis label

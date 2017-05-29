@@ -6,9 +6,12 @@
 class Rotation {
   public:
     Rotation();
-    void addInterrupt(long interruptTime);
+    ~Rotation(); // destructor
+    void addInterrupt(unsigned long interruptTime);
+    void Reset();
+    String toString();
   private:
-    long _interrupts[3];
+    unsigned long _interrupts[3];
     int _interruptCounter;
 };
 
